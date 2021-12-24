@@ -1,0 +1,42 @@
+package framework
+
+import (
+
+	"log"
+	"time"
+)
+
+// recovery机制，将协程中的函数异常进行捕获
+func Recovery() ControllerHandler {
+	// 使用函数回调
+	return func(c *Context) error {
+		// 核心在增加这个recover机制，捕获c.Next()出现的panic
+		defer func() {
+			if err := recover(); err != nil {
+				c.Json(500, err)
+			}
+		}()
+		// 使用next执行具体的业务逻辑
+		c.Next()
+
+		return nil
+	}
+}
+
+func Cost() ControllerHandler {
+	// 使用函数回调
+	return func(c *Context) error {
+		// 记录开始时间
+		start := time.Now()
+
+		// 使用next执行具体的业务逻辑
+		c.Next()
+
+		// 记录结束时间
+		end := time.Now()
+		cost := end.Sub(start)
+		log.Printf("api uri: %v, cost: %v", c.GetRequest().RequestURI, cost.Seconds())
+
+		return nil
+	}
+}
