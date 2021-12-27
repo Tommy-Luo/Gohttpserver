@@ -75,12 +75,12 @@ func (c *Core) ServeHTTP(response  http.ResponseWriter, request  *http.Request) 
 	handlers := c.FindRouteByRequest(request)
 
 	if handlers == nil {
-		ctx.Json(404, "not found,http.Status: 404")
+		ctx.Json("not found,http.Status: 404")
 		return
 	}
 	ctx.SetHandlers(handlers)
 	if err := ctx.Next(); err != nil {
-		ctx.Json(500, "inner error,http.Status: 500")
+		ctx.Json("inner error,http.Status: 500")
 		return
 	}
 	log.Println("core.serveHTTP end")
