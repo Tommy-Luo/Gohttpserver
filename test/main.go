@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+
+
 type User struct {
 	Id          uint        `gorm:"AUTO_INCREMENT"`
 	Name        string      `gorm:"size:50"`
@@ -15,6 +17,8 @@ type User struct {
 	Email       string      `gorm:"type:varchar(50);unique_index"`
 	PassWord    string      `gorm:"type:varchar(25)"`
 }
+
+
 var db *gorm.DB
 func main() {
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情
