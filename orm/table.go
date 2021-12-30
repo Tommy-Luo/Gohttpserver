@@ -1,6 +1,7 @@
 package orm
 
 import (
+	"encoding/json"
 	"fmt"
 	"gorm.io/gorm"
 	"time"
@@ -71,15 +72,19 @@ func CreateData(db *gorm.DB){
 }
 
 
-func SearchData(db *gorm.DB, val1 uint)  string{
+func SearchData(db *gorm.DB, val1 uint)  []byte{
 	if db == nil{
 		fmt.Println("Table SearchData error")
 	}
 	var user User
 	db.Select("pass_word").Where("id = ?", val1).Find(&user)
+	ret_json, err := json.Marshal(&user)
+	if err != nil{
+		err.Error()
+	}
 
-	fmt.Println(user.PassWord)
-	return user.PassWord
+
+	return ret_json
 
 }
 

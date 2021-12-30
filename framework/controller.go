@@ -2,6 +2,7 @@ package framework
 
 import (
 	"../orm"
+	"encoding/json"
 	"fmt"
 )
 
@@ -22,7 +23,9 @@ func UserLoginController(c *Context) error {
 
 func GetPassWordAPI(c *Context) error{
 
-	ret := orm.SearchData(orm.DB, 1)
+	var ret interface{}
+	byt := orm.SearchData(orm.DB, 2)
+	_ = json.Unmarshal(byt,&ret)
 	c.Json(ret)
 	//orm.UpdateData(orm.DB, obj.(uint))
 	return nil
