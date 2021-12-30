@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"strconv"
 )
+
 var DB *gorm.DB
 
 func InitializeDB() *gorm.DB {
