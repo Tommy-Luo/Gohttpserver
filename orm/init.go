@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 	"strconv"
 )
-
+var DB *gorm.DB
 
 func InitializeDB() *gorm.DB {
 	// 根据驱动配置进行初始化
@@ -47,6 +47,7 @@ func initMySqlGorm() *gorm.DB {
 		sqlDB, _ := db.DB()
 		sqlDB.SetMaxIdleConns(dbConfig.MaxIdleConns)
 		sqlDB.SetMaxOpenConns(dbConfig.MaxOpenConns)
+
 		fmt.Println("mysql connect success")
 		return db
 	}
