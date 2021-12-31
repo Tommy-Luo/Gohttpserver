@@ -77,7 +77,7 @@ func SearchData(db *gorm.DB, val1 uint)  []byte{
 		fmt.Println("Table SearchData error")
 	}
 	var user User
-	db.Select("pass_word").Where("id = ?", val1).Find(&user)
+	db.Where("id = ?", val1).Find(&user)
 	ret_json, err := json.Marshal(&user)
 	if err != nil{
 		err.Error()

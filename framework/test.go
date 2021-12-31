@@ -6,6 +6,7 @@ import (
 )
 
 
+
 func Test1() ControllerHandler {
 	// 使用函数回调
 	return func(c *Context) error {

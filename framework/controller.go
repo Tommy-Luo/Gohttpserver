@@ -3,7 +3,6 @@ package framework
 import (
 	"../orm"
 	"encoding/json"
-	"fmt"
 )
 
 type ControllerHandler func(c *Context) error
@@ -21,21 +20,14 @@ func UserLoginController(c *Context) error {
 	return nil
 }
 
-func GetPassWordAPI(c *Context) error{
+func GetInfomationAPI(c *Context) error{
 
-	var ret interface{}
-	byt := orm.SearchData(orm.DB, 2)
-	_ = json.Unmarshal(byt,&ret)
+	var  ret interface{}
+	val, _ := c.QueryInt("id",0)
+	byt := orm.SearchData(orm.DB, uint(val))
+
+	_ = json.Unmarshal(byt, &ret)
 	c.Json(ret)
-	//orm.UpdateData(orm.DB, obj.(uint))
-	return nil
-}
 
-func ChangePassWordAPI(c *Context) error{
-
-	var obj interface{}
-	c.BindJson(obj)
-	fmt.Println(obj.(string))
-	//orm.UpdateData(orm.DB, obj.(uint))
 	return nil
 }
